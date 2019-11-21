@@ -1,0 +1,13 @@
+.location-list{
+    background-color: slateblue;
+    padding: 3%;
+}
+
+@media (max-width: 64em) {
+    .location-list{
+        background-color: rgb(159, 145, 247);
+        max-height: 100vh;
+        overflow: auto;
+        margin-bottom: 30px;;
+    }
+}

@@ -1,0 +1,206 @@
+( BASE URL API ) - "http://api.openweathermap.org/data/2.5/weather"
+( API-KEY ) - "b515d3025baf2878268c8b7ceb7852c1"
+
+_________________________________________________________________________
+
+[REFACTORIZACIÓN] - (https://es.wikipedia.org/wiki/Refactorizaci%C3%B3n)
+[REACT] - Página principal (https://reactjs.org/)
+        - React en GITHUB (https://github.com/facebook/react)
+
+[JSX] -  (https://facebook.github.io/jsx/)
+      -  (https://medium.com/@Thoughtworks_es/qu%C3%A9-demonios-es-jsx-txt-f5841e51f664)
+
+[BABEL] - (https://babeljs.io/)
+
+[BALSAMIQ] - Diagrama (https://balsamiq.com/)
+
+[WEATHER ICONS] - CDN (https://cdnjs.com/libraries/weather-icons)
+[NPM  weather-icons] - (https://www.npmjs.com/package/react-weathericons)
+[GITHUB weather-icons] - (https://github.com/lucaskatayama/react-weathericons)
+[CSS weather-icons] - (https://erikflowers.github.io/weather-icons/)
+
+[PROPTYPE] - Validacón de parámetros (https://es.reactjs.org/docs/typechecking-with-proptypes.html)
+
+[SASS y LESS] - Preprocesadores css
+[CSS MODULES]
+
+
+[CONECTANDO CON API] - (https://openweathermap.org/)
+                     - (https://openweathermap.org/appid)
+                     - (https://openweathermap.org/api)
+
+
+[LIBRERIA CONVERSORA para grados] - (npm -i convert-units)
+
+[MATERIAL DESIGN](google) - https://material.io (2 apartados Foundation y Guidelines)
+[MATERIAL UI] https://material-ui.com/  INSTALACION: npm install @material-ui/core
+
+extension [ESLint]
+
+[DISEÑO RESPONSIVE]
+    - media query. Mediante detectar el vw, viewport, alteran los estilos
+    - flexbox.
+    - Bootstrap
+    - Grid
+    - React-Flexbox-Grid (LIBRERIA) muy similar a bootstrap. 12 columnas
+        -tamaños  xs,sm, md lg
+
+
+
+
+
+___________________________________________________________________________
+
+
+[inspeccionar] PESTAÑA NETWORK - XHR:
+    - Headers
+    - Preview. lo que nos devuelve
+    - Response. lo que nos devuelve
+    - Timing. tiempo de petis y solicitudes
+
+[SINGLE RESPONSABILITY]
+
+
+** El componente se monta y después se renderiza con su primer state. Despues en base a lo que nosotros decidamos se vuelve se cambia el estado y el render te muestra ya esos nuevos datos
+** Cuando estamos trabajando dentro de un componente de tipo clase, para hacer ref a los metodos o fn que están dentro de ese componente tenemos que utilizar THIS
+** SIEMPRE para cambiar el estado setState ({pasandole solo lo que queremos modificar}) (SIN = igualar). Igualamos solo con this.state = { } para iniciar el estado al crearse el componente
+
+
+**notas**
+- Funcional Components. componentes simples. Solo una funcion y renderizan
+- Class Components. Acceso al ciclo de vida. Constructor
+- Axios / Fetch (https://developer.mozilla.org/es/docs/Web/API/Fetch_API)
+- Object literal property value shorthand
+- Si exportas sin default, tienes que importar deconstruyendo con llaves (** import { apiWeather } from "./../../constants/apiKeys" **)
+- Si solo vas a retornar una cosa puedes hacerlo con (), sino necesitas { return( ... )}
+- si es una cosa y vas a poner console.log tiene que ir fuera del return porque sino peta.
+- funcion map para retornar una list de componentes a través de una funcion. Necesitas una key para identificar a cada componente porque sino renderiza todos.
+- Comunicación entre Componenetes: (NO HAY COMUNICACION DIRECTA)
+        - Burbujeo de acciones(para apps pequeñas)
+        - URL (routing)
+        - Redux (estado de la app)
+
+
+**Burbujeo de acciones. Cuando se selecciona un componente weatherLocation éste se extiende en ForecastExtended.
+        - desde el componente weatherLocation le pasamos la acción de que se realizó un click a LocationList(primer burbujeo) y éste se comunica con app(segundo burbujeo). Y la app se comunica con ForecastExtended
+
+
+TERNARIOS:
+
+    - a null : react no renderiza nada -> { city ? <ForecastExtended city={city} /> : null}
+    - city && <ForecastExtended /> -> este tipo de sintaxis si viene renderiza y sino no renderiza
+
+VALORES TRUTHY Y FALSy
+
+- Truthy values en MDN
+- Falsy values en MDN
+
+===========================================================================================================
+** Ciclo de actualizacion de state / render.
+primero se ejecuta el constructor de nuestro componente principal.(app.js) dentro de este se establece el state= acto seguido, se renderiza(con codigo js,componentes,constructores, otros renders que pueden disparar otros...etc, divs, h2) y vemos ya la pantalla.
+react por el this.setState interpreta que tiene que hacer una nueva renderizacion y vuelve a llamar a todo, renderiza todo aunque visualmente (domvirtual) piensas que solo se esta renderizando lo que cambia.
+
+
+esquema
+___________________________________
+constructor (app.js) state=
+render
+    component1 render
+    component2 render
+-----------------
+this.setState => nueva render
+render
+    component1 render
+    component2 render
+__________________________________________
+===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+// cdm      componentDidMount() {}
+// cdup     componentDidUpdate(prevProps, prevState) {}
+// cwm      componentWillMount() {} -- [ELIMINADO EN LA v17]
+// cwup     componentWillUpdate(nextProps, nextState){} --  [ELIMINADO EN LA v17]
+
+
+-----------------------------------------------------------------------------
+
+- FLUJO :( 3 eventos principales) **antes** DEPRECATED
+
+- [constructor]: inicializar estados o bindear funciones
+- [componentWillMount]: Se ejecuta antes de que el componente sea montado en el dom. Si utilizas ES6, debes usar metodo constructor pasandole props y metodo super para activar correctamente el componente.
+- [render]: devolvemos JSX para el dom
+- [componentDidMount]: petis a servers. Se ejecuta justo después de que el componente se monte en el DOM. Momento perfecto para integrar librerías de terceros, llamadas a servers, peticiones, timers..
+
+(ciclo de actualizacion- 2 metodos principales)
+
+- [componentWillUpdate] Se ejecuta justo antes del render cuando los props han sido recibidos. prepara antes de hacer un render y no se ejecuta con el primer reder. No usar aquí setState(), la app entra en bucle
+- [render]
+- [componentDidUpdate]. Es invocado inmediatamente después de que el componente se haya actualizado. no por primera vez. Aquí ya podemos manejar el componente renderizado y actualizado en el DOM
+
+
+//Otros:
+- [componentWillReceiveProps]. Este método se ejecuta recibe nuevas props del componente padre.
+- [shouldComponentUpdate]. Hace lo mismo que componentWillUpdate. Por defecto retorna True, pero si hacemos que retorne false, cancelaríamos el render hasta nuevo cambio de propiedades o de estado, y por tanto no serían ejecutados ni componentWillUpdate ni componentWillReceiveProps
+
+- [componentWillUnmount]. Método que se ejecuta justo antes de q el componente se elimine del dom. perfecto para reset.no recibe params.
+
+
+
+_____________________________________________________________________________________________________________________
+
+                                *********"ORDEN DE EJECUCIÓN DE LOS MÉTODOS"********
+
+"creación de un componente"
+    # -   ¡¡ DEPRECATED !! se dispara el método (componentWillMount). Antes de que el componente se monte en el DOM
+    - 1. se ejecuta el constructor. inicializar estados o bindear funciones sino usas ES6
+    - 2. se renderiza y monta el componente en el DOM.
+    - 3. se dispara el método (componentDidMount)
+
+
+"Actualización de un componente"
+    # -  // se dispara el método (shouldComponentUpdate)
+    # -  // se dispara el método (componentWillReceiveProps) si recibe nuevas props
+    # - //  se dispara el método (componentWillUpdate) antes de volver a renderizar
+    -   se actualiza el componente y se renderiza el DOM
+    -   se dispara el método (componentDidUpdate) una vez que esté el componente renderizado
+
+"Destrucción de un componente"
+    -   se dispara el método (componentWillUnmount) antes de que se destruya
+    -   el componente es destruido y eliminado del dom
+
+
+____________________________________________________________________________________________________________________
+
+**************** "ULTIMA VERSION REACT https://reactjs.org/blog/2018/03/29/react-v-16-3.html" **********************
+
+    ELIMINADOS v16 - ( componentWillMount, componentWillReceiveProps, componentWillUpdate).
+    AGREGADOS  v16 - ( getDerivedStateFromProps ) como alternativa a (componentWillReceiveProps)
+                   -  (getSnapshotBeforeUpdate) para admitir lectura segura de propiedades
+
+____________________________________________________________________________________________________________________
+
+- No meter datos que te traes de servidores antes de montar el componente. Mala práctica. hay que meter el resultado del server una vez el componente ya esté montado en didMount. Y esos segundos que tienes con datos errorneos o inicializados hay que tratarlos con algun spiner o indicador de carga o algo para despues mostrar los reales
+
+
+
+
+
+
+
+
+
+
+
+
+

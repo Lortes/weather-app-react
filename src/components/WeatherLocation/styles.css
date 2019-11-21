@@ -1,0 +1,26 @@
+
+p{
+    line-height: 10px;
+}
+.weather-location{
+    border: 1px solid rgb(179, 179, 179);
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 7px 6px 9px 0px rgba(163,163,163,1);
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.location{
+    width: 100%;
+    margin: 10px auto;
+    background-color: rgb(37, 37, 37);
+    border-radius: 5px;
+    color: white;
+
+}
+
+.location h2{
+    margin:0;
+    white-space: nowrap;
+}
+
